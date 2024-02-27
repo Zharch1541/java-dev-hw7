@@ -46,6 +46,12 @@ public class Database {
         }
     }
 
+    public static ResultSet executeResult(String file) throws SQLException, IOException {
+        String content = new String(Files.readAllBytes(Paths.get(file)));
+        PreparedStatement statement = conn.prepareStatement(content);
+        return statement.executeQuery();
+    }
+
     public void insertWorker(List<Worker> workers) {
         String sql = Queries.INSERT_WORKER;
         try (PreparedStatement statement = conn.prepareStatement(sql)) {
